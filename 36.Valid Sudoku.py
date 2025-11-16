@@ -1,23 +1,31 @@
-board = [["5","3",".",".","7",".",".",".","."]
-,        ["6",".",".","1","9","5",".",".","."]
-,        [".","9","8",".",".",".",".","6","."]
-,        ["8",".",".",".","6",".",".",".","3"]
-,        ["4",".",".","8",".","3",".",".","1"]
-,        ["7",".",".",".","2",".",".",".","6"]
-,        [".","6",".",".",".",".","2","8","."]
-,        [".",".",".","4","1","9",".",".","5"]
-,        [".",".",".",".","8",".",".","7","9"]]
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        for row in board:
+            seen = set()
+            for value in row:
+                if value != '.':
+                    if value in seen:
+                        return False
+                    seen.add(value)
 
+        for col in range(9):
+            seen = set()
+            for row in range(9):
+                value = board[row][col]
+                if value != '.':
+                    if value in seen:
+                        return False
+                    seen.add(value)
 
-# checking for each rows
+        for box_row in range(0, 9, 3):
+            for box_col in range(0, 9, 3):
+                seen = set()
+                for r in range(box_row, box_row + 3):
+                    for c in range(box_col, box_col + 3):
+                        value = board[r][c]
+                        if value != '.':
+                            if value in seen:
+                                return False
+                            seen.add(value)
 
-for row in board:
-    seen = set()
-    for value in row:
-        if value != '.':
-            if value in seen:
-                print(False)
-            seen.add(value)
-
-# checking for each columns
-
+        return True

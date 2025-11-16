@@ -9,16 +9,15 @@ board = [["5","3",".",".","7",".",".",".","."]
 ,        [".",".",".",".","8",".",".","7","9"]]
 
 
-nums = set()
-for i in range(9):
-    for j in range(9):
-        if board[i][j] != '.':
-            if board[i][j] + 'row' + str(i) in nums or board[i][j] + 'col' + str(j) in nums or board[i][j] + 'box' + str(i//3) + str(j//3) in nums:
-                print(False)
-                exit()
-            nums.add(board[i][j] + 'row' + str(i))
-            nums.add(board[i][j] + 'col' + str(j))
-            nums.add(board[i][j] + 'box' + str(i//3) + str(j//3))
-print(True)
+# checking for each rows
 
-print(nums)
+for row in board:
+    seen = set()
+    for value in row:
+        if value != '.':
+            if value in seen:
+                print(False)
+            seen.add(value)
+
+# checking for each columns
+
